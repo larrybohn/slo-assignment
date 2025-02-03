@@ -27,8 +27,10 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 	slow := r.URL.Query().Get("slow") == "true"
 
 	if slow {
-		time.Sleep(2 * time.Second)
+		time.Sleep(3 * time.Second)
 	}
+
+	time.Sleep((time.Duration(rand.IntN(750))) * time.Millisecond)
 
 	products := []Product{
 		{"PlayStation 1", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/PSX-Console-wController.png/1600px-PSX-Console-wController.png"},
