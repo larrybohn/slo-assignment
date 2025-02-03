@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <style>
+        body { text-align: center; margin-top: 50px; }
+        .container { max-width: 600px; margin: auto; }
+        #results { margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .card { border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-align: center; width: 150px; }
+        .card img { max-width: 100%; height: auto; }
+        #spinner { display: none; font-size: 24px; }
+    </style>
+    <script>
+    function search(slow) {
+        let url = slow ? '/search?slow=true' : '/search';
+        let resultsDiv = document.getElementById('results');
+        let spinner = document.getElementById('spinner');
+        resultsDiv.innerHTML = '';
+        spinner.style.display = 'block';
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                spinner.style.display = 'none';
+                data.forEach(item => {
+                    let card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<img src='${item.image}' alt='${item.name}'><p>${item.name}</p>`;
+                    resultsDiv.appendChild(card);
+                });
+            });
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Server: {{.Hostname}}</h1>
+        <input type="text" placeholder="Enter query" class="input">
+        <button class="button" onclick="search(false)">Search</button>
+        <button class="button button-outline" onclick="search(true)">Search (Slow)</button>
+        <div id="spinner">🔄 Loading...</div>
+        <div id="results" class="container"></div>
+    </div>
+</body>
+</html>
