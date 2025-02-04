@@ -17,11 +17,13 @@ The proportion of search requests which were fullfilled sufficiently fast, as me
 I suggest to review the assignment end-to-end during the technical interview. However, below you may find screenshots of its live action.
 
 ![List of Kubernetes pods of the store app and kube-prometheus-stack](img/img0.png "Store app and kube-prometheus-stack pods running in the cluster")
+*Store app and kube-prometheus-stack pods running in the cluster*
+
 
 ![Screenshot of the application showing main functionality](img/img1.png "Store application with simulation of slow search")
-
+*Store application with simulation of slow search*
 
 ## Notes
 
+- The numbers used for the SLO in this project (90th percentile, 1 second latency and 30-minute window) are quite far away from the real-world scenarios, but were used here for ease of testing and demonstration.
 - The ability to provision the necessary infrastructure and deploy the app in 1-click would be nice here, but was not included in the scope due to task time limitations.
-- The numbers used for the SLO in this project (1 second latency and 30-minute window) are quite far away from the real-world scenarios, but were used here for ease of testing and demonstration.
