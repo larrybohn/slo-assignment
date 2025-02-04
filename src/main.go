@@ -5,35 +5,15 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/prometheus/client_golang/prometheus"
+	"github.com/larrybohn/slo-assignment/metrics"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
-
-var searchDuration = prometheus.NewHistogramVec(
-	prometheus.HistogramOpts{
-		Name:    "search_duration_seconds",
-		Help:    "Duration of search requests in seconds",
-		Buckets: prometheus.DefBuckets,
-	},
-	[]string{"type"},
-)
-
-func init() {
-	prometheus.MustRegister(searchDuration)
-}
-
-type PageData struct {
-	Hostname string
-}
-
-type Product struct {
-	Name  string `json:"name"`
-	Image string `json:"image"`
-}
 
 var tmpl, _ = template.ParseFiles("index.html")
 
 func main() {
+
+	metrics.RegisterMetrics()
 
 	http.HandleFunc("/", handleIndex)
 

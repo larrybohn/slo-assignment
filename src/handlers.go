@@ -7,7 +7,18 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/larrybohn/slo-assignment/metrics"
 )
+
+type PageData struct {
+	Hostname string
+}
+
+type Product struct {
+	Name  string `json:"name"`
+	Image string `json:"image"`
+}
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	hostname, err := os.Hostname()
@@ -23,6 +34,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleSearch(w http.ResponseWriter, r *http.Request) {
+
 	start := time.Now()
 	slow := r.URL.Query().Get("slow") == "true"
 
@@ -30,7 +42,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 		time.Sleep(3 * time.Second)
 	}
 
-	time.Sleep((time.Duration(rand.IntN(750))) * time.Millisecond)
+	time.Sleep((time.Duration(rand.IntN(900))) * time.Millisecond)
 
 	products := []Product{
 		{"PlayStation 1", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/PSX-Console-wController.png/1600px-PSX-Console-wController.png"},
@@ -44,7 +56,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 	rand.Shuffle(len(products), func(i, j int) { products[i], products[j] = products[j], products[i] })
 
 	elapsed := time.Since(start).Seconds()
-	searchDuration.WithLabelValues("simple").Observe(elapsed)
+	metrics.RequestDuration.WithLabelValues("search").Observe(elapsed)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(products)
