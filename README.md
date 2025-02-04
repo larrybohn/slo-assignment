@@ -10,7 +10,7 @@ The proportion of search requests which were fullfilled sufficiently fast, as me
 
 ## SLO Definition
 
-90% of search requests took ≤ 1 second to fullfil over a 30-minute rolling window.
+90% of search requests should take ≤ 1 second to fullfil over a 30-minute rolling window.
 
 ## End-to-end demo
 
