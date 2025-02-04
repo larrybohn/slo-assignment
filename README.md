@@ -23,6 +23,11 @@ I suggest to review the assignment end-to-end during the technical interview. Ho
 ![Screenshot of the application showing main functionality](img/img1.png "Store application with simulation of slow search")
 *Store application with simulation of slow search*
 
+
+![Screenshot of Grafana showing visualizations of p90 latency and error budget](img/img2.png "Grafana dashboard")
+*Grafana dashboard*
+
+
 ## Notes
 
 - The numbers used for the SLO in this project (90th percentile, 1 second latency and 30-minute window) are quite far away from the real-world scenarios, but were used here for ease of testing and demonstration.
