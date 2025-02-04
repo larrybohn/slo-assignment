@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is an online store written in Go. Its key functionality is search and the SLO around this functionality is defined below. There is a simulation of slow search request implemented for test purposes. The application is deployed to my home server Kubernetes cluster with the helm chart provided in this repo. The application is instrumented to expose metrics to Prometheus. Grafana is used to visualize the SLO, Error Budget and to trigger alerts when the SLO is not met. ```kube-prometheus-stack``` was used to deploy Prometheus and Grafana to the cluster. JSON models of Grafana Alert Rules and Dashboards are located in ```grafana/```
+This is an online store written in Go. Its key functionality is search and the SLO around this functionality is defined below. There is a simulation of slow search request implemented for test purposes. The application is deployed to my home server Kubernetes cluster with the helm chart provided in this repo. The application is instrumented to expose metrics to Prometheus. Grafana is used to visualize the latency, error budget and to trigger alerts when the SLO is not met. ```kube-prometheus-stack``` was used to deploy Prometheus and Grafana to the cluster. JSON models of Grafana Alert Rules and Dashboards are located in ```grafana/```
 
 ## SLI Definition
 
