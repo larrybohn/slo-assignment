@@ -1,0 +1,151 @@
+{
+    "apiVersion": 1,
+    "groups": [
+        {
+            "orgId": 1,
+            "name": "default",
+            "folder": "store-app-alerts",
+            "interval": "1m",
+            "rules": [
+                {
+                    "uid": "fec1qjkned79cd",
+                    "title": "p90 search latency over 30m rolling window",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "relativeTimeRange": {
+                                "from": 1800,
+                                "to": 0
+                            },
+                            "datasourceUid": "prometheus",
+                            "model": {
+                                "adhocFilters": [],
+                                "datasource": {
+                                    "type": "prometheus",
+                                    "uid": "prometheus"
+                                },
+                                "disableTextWrap": false,
+                                "editorMode": "code",
+                                "exemplar": false,
+                                "expr": "histogram_quantile(0.90, sum by(le) (rate(request_duration_seconds_bucket{exported_endpoint=\"search\"}[30m])))",
+                                "format": "time_series",
+                                "fullMetaSearch": false,
+                                "includeNullMetadata": true,
+                                "instant": false,
+                                "interval": "",
+                                "intervalMs": 30000,
+                                "legendFormat": "",
+                                "maxDataPoints": 43200,
+                                "range": true,
+                                "refId": "A",
+                                "useBackend": false
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "relativeTimeRange": {
+                                "from": 0,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "last",
+                                "refId": "B",
+                                "settings": {
+                                    "mode": "dropNN"
+                                },
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "relativeTimeRange": {
+                                "from": 0,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                1
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "B",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dashboardUid": "cebzb1fit1dkwf",
+                    "panelId": 1,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "1m",
+                    "annotations": {
+                        "__dashboardUid__": "cebzb1fit1dkwf",
+                        "__panelId__": "1",
+                        "description": "- **Service:** Search\n- **Metric:** `p90 search request latency`\n- **Threshold:** `> 1s`\n- **Current Value:** `{{ $value }}s`\n- **Time Window:** `Last 30 minutes`\n- **Alert Triggered At:** `{{ $time }}`",
+                        "summary": "p95 Search Latency Exceeded 1s"
+                    },
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "Andrei"
+                    }
+                }
+            ]
+        }
+    ]
+}
